@@ -11,6 +11,14 @@ set laststatus=2
 set showtabline=2
 set noshowmode
 
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"":""}',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
 
 "{{{ Search
 set ignorecase          " 大文字小文字を区別しない
@@ -170,7 +178,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/syntastic'
   Plug 'tpope/vim-surround'
   Plug 'scrooloose/nerdtree'
-  
+  Plug 'itchyny/lightline.vim'
+
 if has('lua') && v:version >= 703 && has('patch885')
   Plug 'Shougo/neocomplete.vim'
   Plug 'Shougo/neocomplcache.vim'
