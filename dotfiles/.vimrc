@@ -1,5 +1,4 @@
 "{{{ Basic Config
-
 " release autogroup in MyAutoCmd
 augroup MyAutoCmd
   autocmd!
@@ -7,18 +6,32 @@ augroup END
 
 set t_Co=256
 set mouse=a
+set cursorline
 set laststatus=2
 set showtabline=2
-set noshowmode
 
+"{{{ lightline.vim
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
       \ 'component': {
-      \   'readonly': '%{&readonly?"":""}',
+      \   'readonly': '%{&readonly?"":""}'
+      \ },
+      \'active': {
+      \   'left': [
+      \     ['mode', 'paste']
+      \   ],
+      \   'right': [
+      \     ['lineinfo', 'syntastic'],
+      \     ['percent'],
+      \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
+      \   ]
+      \ },
+      \ 'componet_function': {
+      \     'fugitive': 'LightlineFugitive'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
+"}}}
 
 "{{{ Search
 set ignorecase          " 大文字小文字を区別しない
@@ -167,7 +180,6 @@ endif
 "}}}
 "{{{ Pulgs
 call plug#begin('~/.vim/plugged')
-  Plug 'powerline/powerline', { 'rtp' : 'powerline/bindings/vim'}
   Plug 'junegunn/vim-plug',
         \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
   Plug 'tpope/vim-surround'
@@ -179,7 +191,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'scrooloose/nerdtree'
   Plug 'itchyny/lightline.vim'
-
+  Plug 'Yggdroot/indentLine'
+  
 if has('lua') && v:version >= 703 && has('patch885')
   Plug 'Shougo/neocomplete.vim'
   Plug 'Shougo/neocomplcache.vim'
@@ -206,3 +219,4 @@ call plug#end()
  " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
 "}}}
+
