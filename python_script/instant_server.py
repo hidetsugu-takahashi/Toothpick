@@ -12,6 +12,12 @@ brew install python3
 pip3 install Pillow
 pip3 install qrcode
 chmod +x instant_server.py
+
+で、これどんな動きするの？
+------------------------------
+
+ 1. このスクリプトのあるディレクトリをルートにして、HTTPサーバーが起動します。
+ 2. 工程1でできたHTTPサーバーにアクセスするQRコードが生成されます。
 ```
 """
 
