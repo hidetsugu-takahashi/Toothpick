@@ -11,6 +11,7 @@
 brew install python3
 pip3 install Pillow
 pip3 install qrcode
+chmod +x instant_server.py
 ```
 """
 
