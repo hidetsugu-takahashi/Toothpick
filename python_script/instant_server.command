@@ -9,13 +9,14 @@ __date__ = "2017-07-12"
 このスクリプトを起動する前に。
 ###############################
 
-以下コマンドをやらないと行けないです。
+一緒に付いてきてる、
+「build_environment.command」
+を実行してください。
 
-```
-brew install python3
-pip3 install Pillow
-pip3 install qrcode
-chmod +x instant_server.py
+1. 右クリックメニュー > 開く をクリックします
+2. 「開発元は未確認です。開いてもよろしいですか？」の旨のダイアログが出てきますので、「開く」をクリック
+
+環境構築できた後は、このプログラムを実行してください。
 
 で、これどんな動きするの？
 ------------------------------
@@ -28,21 +29,13 @@ chmod +x instant_server.py
  ダブルクリックしたら動くようにしたいんだけど。
  ----------------------------------------
 
-1. 右クリック > 情報を見る で、ファイルの情報ダイアログが表示されます。
-2. 「このアプリケーションで開く:」 の項目で、「Python Launcher 3 (3.x.x)」と言うのを選択します。
-3. 設定画面が出てきますが、まず
-    * 「Interpreter:」 のテキストボックスを「/usr/local/bin/python3」に書き換えます。
-    * 「Run in a Terminal window」のチェックボックスを外します。
+1. 右クリックメニュー > 開く をクリックします
+2. 「開発元は未確認です。開いてもよろしいですか？」の旨のダイアログが出てきますので、「開く」をクリック
 
 これでダブルクリックで起動します。
-
-また、
-「なんかおかしい」
-と思ったら、Dockに居る「Python Launcher 3」を終了してください。
-
-```
 """
 
+import os
 import socket
 import socketserver
 import http.server
@@ -51,15 +44,21 @@ import webbrowser
 
 myip = socket.gethostbyname(socket.gethostname())
 
-PORT = 8000
+PORT = 8080
 
 Handler = http.server.SimpleHTTPRequestHandler
 
 code_img = qrcode.make('http://' + myip + ':' + str(PORT))
 code_img.show()
 
+os.chdir(os.path.expanduser('~') + '/Desktop/net/')
+
 webbrowser.open('http://' + myip + ':' + str(PORT))
 
-with socketserver.TCPServer((myip, PORT), Handler) as httpd:
-    print("serving at addres" + myip + ":", PORT)
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print(myip + ":" + str(PORT) + "に接続すると、閲覧できます。")
+    print("このサービスを終了するときは、この画面を閉じてください。")
+    print("以下、ログです。")
+    print("8<--------------------------------------------------")
     httpd.serve_forever()
+
